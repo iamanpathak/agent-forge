@@ -1,26 +1,21 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Force perfectly smooth stroke animation */
+.react-flow__edge-path {
+  stroke-dasharray: 5, 5 !important;
+  animation: smoothFlow 0.35s linear infinite !important; /* Sweet spot for normal flow */
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, filter 0.3s ease;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Glow and crazy fast speed on execution */
+.react-flow__edge.executing-edge .react-flow__edge-path {
+  filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.8)) !important;
+  animation: smoothFlow 0.15s linear infinite !important; /* Sweet spot for fast execution */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* The magic trick for 0 stuttering */
+@keyframes smoothFlow {
+  to {
+    stroke-dashoffset: -10;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

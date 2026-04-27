@@ -22,6 +22,8 @@
 
 # misc
 .DS_Store
+Thumbs.db
+*~
 *.pem
 
 # debug
@@ -29,9 +31,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (Block all real keys, but ALLOW the template)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +43,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Prisma / Database (Prevents accidental local DB commits)
+/app/generated/prisma
+*.db
+*.sqlite
+*.sqlite-journal
+
+# IDEs and Editors
+.idea/
+.vscode/localhistory/
+*.swp

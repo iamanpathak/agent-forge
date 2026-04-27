@@ -1,0 +1,139 @@
+// -----------------------------------------------------------------------------
+// PRISMA SCHEMA DEFINITION
+// This file acts as the single source of truth for the database architecture.
+// -----------------------------------------------------------------------------
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------------------
+// CORE ARCHITECTURE: Users & Multi-Tenant Workspaces
+// -----------------------------------------------------------------------------
+
+model User {
+  id            String            @id @default(cuid())
+  email         String            @unique
+  name          String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  
+  // A user can belong to multiple workspaces (e.g., Personal, Company)
+  workspaces    WorkspaceMember[]
+}
+
+model Workspace {
+  id            String            @id @default(cuid())
+  name          String
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  
+  // Relations: Everything belongs to a workspace, not just a single user
+  members       WorkspaceMember[]
+  agents        Agent[]
+  secrets       Secret[]
+}
+
+// Role-Based Access Control (RBAC) Enums
+enum Role {
+  ADMIN
+  VIEWER
+}
+
+// Junction table mapping Users to Workspaces with specific permissions
+model WorkspaceMember {
+  id            String    @id @default(cuid())
+  userId        String
+  workspaceId   String
+  role          Role      @default(VIEWER)
+  
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  // Ensure a user cannot be added to the same workspace twice
+  @@unique([userId, workspaceId])
+}
+
+// -----------------------------------------------------------------------------
+// SECURITY: Encrypted Vault
+// -----------------------------------------------------------------------------
+
+model Secret {
+  id            String    @id @default(cuid())
+  name          String    // e.g., "OPENAI_API_KEY", "GITHUB_TOKEN"
+  value         String    // MUST BE ENCRYPTED at the application layer before saving
+  
+  workspaceId   String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  createdAt     DateTime  @default(now())
+
+  // A workspace can only have one secret per name (e.g., one OpenAI key)
+  @@unique([name, workspaceId])
+}
+
+// -----------------------------------------------------------------------------
+// AGENT ENGINE: Workflow Definitions & Executions
+// -----------------------------------------------------------------------------
+
+enum AgentStatus {
+  DRAFT
+  PUBLISHED
+  PAUSED
+}
+
+model Agent {
+  id            String        @id @default(cuid())
+  name          String
+  description   String?
+  status        AgentStatus   @default(DRAFT)
+  
+  // REACT FLOW STATE: We store the visual graph as JSON blocks
+  // This prevents complex relational table joins for UI rendering
+  nodes         Json          @default("[]")
+  edges         Json          @default("[]")
+
+  workspaceId   String
+  workspace     Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  runs          ExecutionLog[]
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum RunStatus {
+  PENDING
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+// Observability: Tracks every time an agent is triggered
+model ExecutionLog {
+  id            String    @id @default(cuid())
+  agentId       String
+  status        RunStatus @default(PENDING)
+  
+  // Stores the step-by-step input/output of the agent for debugging
+  stepData      Json      @default("[]")
+  errorMessage  String?   @db.Text
+  
+  startedAt     DateTime  @default(now())
+  completedAt   DateTime?
+  
+  agent         Agent     @relation(fields: [agentId], references: [id], onDelete: Cascade)
+}
+
+// Add this to your schema.prisma file
+model AgentData {
+  id         String   @id @default(uuid())
+  collection String   // Stores user's custom table name (e.g., 'users', 'leads')
+  data       Json     // Stores the actual dynamic data
+  createdAt  DateTime @default(now())
+}
