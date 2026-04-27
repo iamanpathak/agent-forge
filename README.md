@@ -95,6 +95,7 @@ agent-forge/
 │   ├── globals.css            # Tailwind & Custom Animation CSS
 │   ├── layout.tsx             # Root layout with Clerk Provider
 │   └── page.tsx               # Hybrid Landing Page & Dashboard
+├── assets/                    # Screenshots for README documentation
 ├── components/
 │   ├── nodes/                 # Custom React Flow Node Components
 │   │   ├── AISecurityNode.tsx
@@ -107,7 +108,7 @@ agent-forge/
 │   └── schema.prisma          # PostgreSQL Schema (Users, Agents, Logs)
 ├── .env.example               # Template for required API keys
 ├── docker-compose.yml         # Local Postgres & Redis setup
-├── middleware.ts              # Clerk Auth edge routing protection
+├── proxy.ts                   # Clerk Auth edge routing protection
 ├── package.json               # Project dependencies
 └── README.md                  # Project documentation
 ```
