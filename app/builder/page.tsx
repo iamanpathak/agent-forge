@@ -423,7 +423,7 @@ function BuilderContent() {
           </button>
 
           <div className="h-6 w-px bg-gray-200 mx-2"></div>
-          <UserButton fallbackRedirectUrl="/" />
+          <UserButton />
 
         </div>
       </header>
