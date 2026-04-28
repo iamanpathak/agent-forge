@@ -11,15 +11,15 @@ Hey! I'm Aman. I built **AgentForge** to democratize the creation of complex AI 
 
 ---
 
-## 🧩 The Problem & Solution
+## ⚡ The Vision: From Concept to Canvas
 
-**The Problem:** Building capable AI agents usually requires complex scripting, managing state between API calls, handling context windows, and building custom routing logic. Visualizing how data flows from a trigger to an LLM and finally to a database is highly abstract and prone to breaking.
+**The Barrier:** Building capable AI agents usually requires complex scripting, managing state between API calls, handling context windows, and building custom routing logic. Visualizing how data flows from a trigger to an LLM and finally to a database is highly abstract and prone to breaking.
 
-**The Solution:** AgentForge acts as a visual IDE for AI. It features a custom-built React Flow canvas where users can visually connect Webhooks, Llama 3.1 AI models, Web Scrapers, Logic Routers, and Databases. The backend parses this visual graph into an executable JSON payload, processing the logic seamlessly and returning real-time execution logs.
+**The Breakthrough:** AgentForge acts as a visual IDE for AI. It features a custom-built React Flow canvas where users can visually connect Webhooks, Llama 3.1 AI models, Web Scrapers, Logic Routers, and Databases. The backend parses this visual graph into an executable JSON payload, processing the logic seamlessly and returning real-time execution logs.
 
 ---
 
-## 🏗️ System Architecture & Data Flow
+## 🔄 The Execution Pipeline
 
 I designed the execution engine to dynamically parse UI nodes into backend logic. When an agent is triggered, the engine steps through the graph, substituting variables and handling external API calls autonomously.
 
@@ -44,46 +44,46 @@ I designed the execution engine to dynamically parse UI nodes into backend logic
 
 ---
 
-## 📸 System in Action
+## 🎨 Core Capabilities & Showcase
 
-### 1. The Marketing Landing Page
-A high-converting, modern SaaS landing page featuring smooth scrolling, interactive marquees, and a psychological pricing layout.
+### 1. The Marketing & Landing Experience
+A high-converting, modern SaaS interface featuring interactive marquees, feature showcases, and psychological pricing layouts.
 
-![Landing Page](assets/01-landing-page.png)
+![Landing Page](assets/01-landing-hero.png)
 
 ### 2. Secure Authentication
 Enterprise-grade, SOC2 compliant authentication powered by Clerk, ensuring user workspaces and API configurations remain completely private.
 
 ![Clerk Auth](assets/02-auth-clerk.png)
 
-### 3. The Agents Dashboard
-The central command center. Users can track total executions, monitor system status, and search, manage, or create new Agent workflows.
+### 3. Agent Management Dashboard
+The central command center. Track global executions, monitor engine status, and manage your active workflow drafts.
 
-![Agents Dashboard](assets/03-dashboard-agents.png)
+![Dashboard](assets/03-dashboard-stats.png)
 
-### 4. Visual Node Builder (Canvas)
-The core product. A highly interactive drag-and-drop canvas with custom-designed nodes categorized by Triggers, Logic, AI, Actions, and Storage.
+### 4. The Visual Automation Canvas
+The core product. A highly interactive drag-and-drop workspace with custom-designed nodes categorized by Triggers, Logic, AI, Actions, and Storage.
 
-![Canvas Builder](assets/04-canvas-builder.png)
+![Visual Canvas](assets/04-visual-canvas.png)
 
-### 5. Advanced Node Configuration
-Demonstrating the dynamic input fields, dropdowns, and variable injection (`{{trigger}}`, `{{llm}}`) that allow nodes to pass data seamlessly to one another.
+### 5. Dynamic Variable Context
+Advanced node configuration allowing users to pass data seamlessly across the graph using intuitive mustache syntax (e.g., `{{trigger}}`, `{{llm}}`).
 
-![Node Configuration](assets/05-node-configuration.png)
+![Variable Injection](assets/05-node-configuration.png)
 
-### 6. Live Execution Terminal
-A custom-built, auto-scrolling terminal modal that provides real-time, step-by-step logs of the backend execution engine. Features CSS animations that highlight nodes as they are processed.
+### 6. Real-Time Execution Terminal
+A custom-built, auto-scrolling terminal that provides step-by-step logs of the backend execution engine, featuring CSS animations that highlight nodes as they process data.
 
-![Execution Terminal](assets/06-live-execution-terminal.png)
+![Live Execution](assets/06-live-execution.png)
 
 ### 7. AI Security Gateway
-An integrated middleware node that scans inputs for Prompt Injections, PII leaks, and Toxicity before it ever reaches the LLM, enabling safe dual-path routing.
+An integrated middleware node that actively scans inputs for Prompt Injections, PII leaks, and Toxicity before it ever reaches the LLM, enabling safe dual-path routing.
 
 ![AI Security Node](assets/07-ai-security-node.png)
 
 ---
 
-## 📂 Project Structure
+## 📁 Codebase Blueprint
 
 ```text
 agent-forge/
@@ -115,7 +115,7 @@ agent-forge/
 
 ---
 
-## ⚖️ Architecture Tradeoffs & Design Choices
+## 🛠️ Engineering Decisions & Trade-offs
 
 * **React Flow JSON State vs. Deep Relational Tables:** I chose to store the visual canvas state (nodes and edges) as a serialized `JSONB` block in PostgreSQL rather than breaking them down into individual relational rows. *Tradeoff:* This prevents complex cross-node SQL queries, but allows for lightning-fast reads/writes, trivial versioning, and eliminates complex table joins for UI rendering.
 * **Serverless Next.js API vs. Long-Running Backend:** The execution engine runs on Next.js Edge/Serverless API routes. *Tradeoff:* This makes deployment to Vercel incredibly easy and scales infinitely from day one. However, serverless architectures have timeout limits (10s - 60s), meaning extremely long-running AI workflows would eventually require transitioning to the included BullMQ/Redis background job architecture.
@@ -123,7 +123,7 @@ agent-forge/
 
 ---
 
-## 🚀 Get it Running Locally
+## 🚀 Quickstart Guide
 
 ### 1. Clone & Setup
 
@@ -156,7 +156,7 @@ Navigate to `http://localhost:3000` to access AgentForge.
 
 ---
 
-## ☁️ Deployment (Vercel)
+## ☁️ Ship to Production (Vercel)
 AgentForge is fully optimized for Vercel deployment. 
 1. Import the repository into Vercel.
 2. Add your `.env` variables in the Vercel project settings.
