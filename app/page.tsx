@@ -126,7 +126,7 @@ export default function Dashboard() {
                 <Plus className="w-4 h-4" /> Create New Agent
               </button>
               <div className="h-6 w-px bg-gray-200 mx-2"></div>
-              <UserButton afterSignOutUrl="/" />
+              <UserButton />
             </>
           ) : (
             <>
