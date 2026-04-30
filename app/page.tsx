@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Plus, Bot, Calendar, ArrowRight, LayoutDashboard, Zap, Workflow, CheckCircle2, LineChart, Mail, Globe, Cpu, Database, MessageSquare, FileText, Hash, Search, ShieldCheck, Trash2 } from 'lucide-react';
+import { Plus, Bot, Calendar, ArrowRight, LayoutDashboard, Zap, Workflow, CheckCircle2, LineChart, Mail, Globe, Cpu, Database, MessageSquare, FileText, Hash, Search, ShieldCheck, Trash2, Edit2 } from 'lucide-react';
 import { UserButton, SignInButton, useAuth } from "@clerk/nextjs";
 
 export default function Dashboard() {
@@ -56,6 +56,31 @@ export default function Dashboard() {
     } catch (error) {
       console.error("Delete error:", error);
       alert("Failed to delete agent. Please try again.");
+      window.location.reload(); 
+    }
+  };
+
+  const handleRenameAgent = async (e: React.MouseEvent, id: string, currentName: string) => {
+    e.preventDefault(); 
+    e.stopPropagation(); 
+    
+    const newName = window.prompt("Enter new name for your Agent:", currentName);
+    if (!newName || newName === currentName) return;
+
+    // Optimistic UI update (feels instant to the user)
+    setAgents(agents.map((a: any) => a.id === id ? { ...a, name: newName } : a));
+
+    try {
+      const res = await fetch('/api/agents', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, name: newName })
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error("Failed to rename");
+    } catch (error) {
+      console.error("Rename error:", error);
+      alert("Failed to rename agent. Please try again.");
       window.location.reload(); 
     }
   };
@@ -254,6 +279,14 @@ export default function Dashboard() {
                             </span>
                           );
                         })()}
+
+                        <button 
+                            onClick={(e) => handleRenameAgent(e, agent.id, agent.name)}
+                            className="p-1.5 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-md transition-all ml-1 z-20"
+                            title="Rename Agent"
+                        >
+                            <Edit2 className="w-4 h-4" />
+                        </button>
 
                         <button 
                             onClick={(e) => deleteAgent(e, agent.id)}

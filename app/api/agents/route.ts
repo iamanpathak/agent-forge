@@ -84,3 +84,24 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ success: false, error: 'Failed to delete' }, { status: 500 });
   }
 }
+
+// PATCH: Update specific fields like Agent Name
+export async function PATCH(req: Request) {
+  try {
+    const body = await req.json();
+    const { id, name } = body;
+
+    if (!id || !name) {
+      return NextResponse.json({ success: false, error: 'ID and Name are required' }, { status: 400 });
+    }
+
+    const updatedAgent = await prisma.agent.update({
+      where: { id: id },
+      data: { name: name }
+    });
+
+    return NextResponse.json({ success: true, agent: updatedAgent });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: 'Failed to update name' }, { status: 500 });
+  }
+}
