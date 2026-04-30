@@ -112,6 +112,7 @@ agent-forge/
 ├── docker-compose.yml         # Local Postgres & Redis setup
 ├── proxy.ts                   # Clerk Auth edge routing protection
 ├── package.json               # Project dependencies
+├── LICENSE                    # MIT License
 └── README.md                  # Project documentation
 ```
 
