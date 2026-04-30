@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState } from 'react';
@@ -7,7 +8,7 @@ import { UserButton, SignInButton, useAuth } from "@clerk/nextjs";
 
 export default function Dashboard() {
   const { isLoaded, isSignedIn } = useAuth();
-  const [agents, setAgents] = useState([]);
+  const [agents, setAgents] = useState<any[]>([]);
   const [totalExecutions, setTotalExecutions] = useState(0); 
   const [loading, setLoading] = useState(true);
   
