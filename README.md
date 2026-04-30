@@ -9,11 +9,11 @@
 
 Hey! I'm Aman. I built **AgentForge** to democratize the creation of complex AI agents. Writing boilerplate code to connect LLMs, databases, and APIs is repetitive and difficult to maintain. I engineered a visual, node-based execution engine that allows developers to design, test, and deploy intelligent AI workflows entirely through a drag-and-drop canvas.
 
-🟢 **Live Deployment:** [Experience the live engine on Vercel](https://agent-forge-jade.vercel.app)
+🌐 **Live Deployment:** 🔗 [Try AgentForge Here](https://agent-forge-jade.vercel.app)
 
 ---
 
-## ⚡ Engineering Objective
+## 🎯 Engineering Objective
 
 **The Problem:** Building capable AI agents usually requires complex scripting, managing state between API calls, handling context windows, and building custom routing logic. Visualizing how data flows from a trigger to an LLM and finally to a database is highly abstract and prone to breaking.
 
@@ -21,29 +21,29 @@ Hey! I'm Aman. I built **AgentForge** to democratize the creation of complex AI 
 
 ---
 
-## 🔄 System Architecture & Execution Flow
+## 🏗️ System Architecture & Execution Flow
 
 I designed the execution engine to dynamically parse UI nodes into backend logic. When an agent is triggered, the engine steps through the graph, substituting variables and handling external API calls autonomously.
 
 <div align="center">
 
 ```text
-      [Webhook / Schedule] ──(Trigger)──> [AgentForge Execution Engine]
-                                                  │
-                                                  ▼
-                                  [Graph Parsing & Validation]
-                                  ├─ 1. Variable Injection ({{trigger}})
-                                  └─ 2. Node Execution Routing
-                                                  │
-             ┌────────────────────────────────────┴────────────────────────────────────┐
-             ▼                                    ▼                                    ▼
-      [AI & Scrapers]                      [Logic & Flow]                     [Actions & Storage]
-      (Groq / Tavily)                    (If/Else, Loops)                    (Postgres / Discord)
-             │                                    │                                    │
-             └────────────────────────────────────┼────────────────────────────────────┘
-                                                  ▼
-                                    [Live Terminal Execution Logs]
-                                     (Real-time Visual Feedback)
+[Webhook / Schedule] ──(Trigger)──> [AgentForge Execution Engine]
+                                                      │
+                                                      ▼
+                                        [Graph Parsing & Validation]
+                                        ├─ 1. Variable Injection ({{trigger}})
+                                        └─ 2. Node Execution Routing
+                                                      │
+                 ┌────────────────────────────────────┴────────────────────────────────────┐
+                 ▼                                    ▼                                    ▼
+          [AI & Scrapers]                      [Logic & Flow]                     [Actions & Storage]
+          (Groq / Tavily)                     (If/Else, Loops)                   (Postgres / Discord)
+                 │                                    │                                    │
+                 └────────────────────────────────────┼────────────────────────────────────┘
+                                                      ▼
+                                       [Live Terminal Execution Logs]
+                                        (Real-time Visual Feedback)
 ```
 
 </div>
