@@ -26,6 +26,7 @@ Hey! I'm Aman. I built **AgentForge** to democratize the creation of complex AI 
 I designed the execution engine to dynamically parse UI nodes into backend logic. When an agent is triggered, the engine steps through the graph, substituting variables and handling external API calls autonomously.
 
 ```text
+
      [Webhook / Schedule] ──(Trigger)──> [AgentForge Execution Engine]
                                                    │
                                                    ▼
@@ -42,6 +43,7 @@ I designed the execution engine to dynamically parse UI nodes into backend logic
                                                    ▼
                                     [Live Terminal Execution Logs]
                                      (Real-time Visual Feedback)
+                                     
 ```
 
 ---
