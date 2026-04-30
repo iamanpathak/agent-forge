@@ -28,27 +28,23 @@ I designed the execution engine to dynamically parse UI nodes into backend logic
 <div align="center">
 
 ```text
-[Webhook / Schedule] ──(Trigger)──> [AgentForge Execution Engine]
-                                                      │
-                                                      ▼
-                                        [Graph Parsing & Validation]
-                                        ├─ 1. Variable Injection ({{trigger}})
-                                        └─ 2. Node Execution Routing
-                                                      │
-                 ┌────────────────────────────────────┴────────────────────────────────────┐
-                 ▼                                    ▼                                    ▼
-          [AI & Scrapers]                      [Logic & Flow]                     [Actions & Storage]
-          (Groq / Tavily)                     (If/Else, Loops)                   (Postgres / Discord)
-                 │                                    │                                    │
-                 └────────────────────────────────────┼────────────────────────────────────┘
-                                                      ▼
-                                       [Live Terminal Execution Logs]
-                                        (Real-time Visual Feedback)
-```
 
-</div>
-
----
+     [Webhook / Schedule] ──(Trigger)──> [AgentForge Execution Engine]
+                                                   │
+                                                   ▼
+                                     [Graph Parsing & Validation]
+                                     ├─ 1. Variable Injection ({{trigger}})
+                                     └─ 2. Node Execution Routing
+                                                   │
+              ┌────────────────────────────────────┴────────────────────────────────────┐
+              ▼                                    ▼                                    ▼
+       [AI & Scrapers]                      [Logic & Flow]                     [Actions & Storage]
+       (Groq / Tavily)                     (If/Else, Loops)                   (Postgres / Discord)
+              │                                    │                                    │
+              └────────────────────────────────────┼────────────────────────────────────┘
+                                                   ▼
+                                    [Live Terminal Execution Logs]
+                                     (Real-time Visual Feedback)
 
 ## 🖥️ Platform Features & UI
 
